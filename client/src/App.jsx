@@ -9,8 +9,10 @@ import Chat from './pages/Chat'
 import Summary from './pages/Summary'
 import Quiz from './pages/Quiz'
 import Orientation from './pages/Orientation'
+import Flashcards from './pages/Flashcards'
+import Exam from './pages/Exam'
+import Profile from './pages/Profile'
 
-// Route protégée — redirige vers /login si pas connecté
 function PrivateRoute({ children }) {
   const { user } = useAuth()
   return user ? children : <Navigate to="/login" />
@@ -24,11 +26,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path="/chat" element={<PrivateRoute><Chat /></PrivateRoute>} />
-        <Route path="/summary" element={<PrivateRoute><Summary /></PrivateRoute>} />
-        <Route path="/quiz" element={<PrivateRoute><Quiz /></PrivateRoute>} />
+        <Route path="/dashboard"   element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/chat"        element={<PrivateRoute><Chat /></PrivateRoute>} />
+        <Route path="/summary"     element={<PrivateRoute><Summary /></PrivateRoute>} />
+        <Route path="/quiz"        element={<PrivateRoute><Quiz /></PrivateRoute>} />
         <Route path="/orientation" element={<PrivateRoute><Orientation /></PrivateRoute>} />
+        <Route path="/flashcards"  element={<PrivateRoute><Flashcards /></PrivateRoute>} />
+        <Route path="/exam"        element={<PrivateRoute><Exam /></PrivateRoute>} />
+        <Route path="/profile"     element={<PrivateRoute><Profile /></PrivateRoute>} />
       </Routes>
     </>
   )
