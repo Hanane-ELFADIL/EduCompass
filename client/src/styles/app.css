@@ -96,7 +96,7 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
   position: sticky;
   top: 0;
   z-index: 200;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 20px rgba(0,0,0,1.25);
   backdrop-filter: blur(10px);
 }
 
