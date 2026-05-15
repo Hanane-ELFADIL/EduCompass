@@ -2,8 +2,25 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { useHistory } from '../context/HistoryContext'
+import {
+  BsChatDots,
+  BsFileEarmarkText,
+  BsLightbulb,
+  BsCompass,
+  BsCardText,
+  BsStopwatch,
+  BsPersonRaisedHand,
+  BsPinAngle,
+} from 'react-icons/bs'
 
-const ICONS = { chat:'💬', summary:'📝', quiz:'🧠', orientation:'🧭', flashcard:'🃏', exam:'⏱️' }
+const ICONS = {
+  chat: BsChatDots,
+  summary: BsFileEarmarkText,
+  quiz: BsLightbulb,
+  orientation: BsCompass,
+  flashcard: BsCardText,
+  exam: BsStopwatch,
+}
 
 function Dashboard() {
   const { user } = useAuth()
@@ -12,12 +29,12 @@ function Dashboard() {
   const stats = getStats()
 
   const tools = [
-    { icon:'💬', cls:'chat',    title:t.chatTitle,    desc:t.chatDesc,    to:'/chat' },
-    { icon:'📝', cls:'summary', title:t.summaryTitle, desc:t.summaryDesc, to:'/summary' },
-    { icon:'🧠', cls:'quiz',    title:t.quizTitle,    desc:t.quizDesc,    to:'/quiz' },
-    { icon:'🧭', cls:'orient',  title:t.orientTitle,  desc:t.orientDesc,  to:'/orientation' },
-    { icon:'🃏', cls:'flash',   title:t.flashTitle,   desc:t.flashDesc,   to:'/flashcards' },
-    { icon:'⏱️', cls:'exam',    title:t.examTitle,    desc:t.examDesc,    to:'/exam' },
+    { icon: <BsChatDots />,        cls:'chat',    title:t.chatTitle,    desc:t.chatDesc,    to:'/chat' },
+    { icon: <BsFileEarmarkText />, cls:'summary', title:t.summaryTitle, desc:t.summaryDesc, to:'/summary' },
+    { icon: <BsLightbulb />,       cls:'quiz',    title:t.quizTitle,    desc:t.quizDesc,    to:'/quiz' },
+    { icon: <BsCompass />,         cls:'orient',  title:t.orientTitle,  desc:t.orientDesc,  to:'/orientation' },
+    { icon: <BsCardText />,        cls:'flash',   title:t.flashTitle,   desc:t.flashDesc,   to:'/flashcards' },
+    { icon: <BsStopwatch />,       cls:'exam',    title:t.examTitle,    desc:t.examDesc,    to:'/exam' },
   ]
 
   const recentHistory = history.slice(0, 5)
@@ -26,7 +43,7 @@ function Dashboard() {
     <div className="dashboard">
       <div className="dashboard-header">
         <p className="dashboard-greeting">{t.welcomeBack}</p>
-        <h1 className="dashboard-title">{user?.name} <span>👋</span></h1>
+        <h1 className="dashboard-title">{user?.name} <span><BsPersonRaisedHand /></span></h1>
       </div>
 
       {/* Stats */}
@@ -68,7 +85,9 @@ function Dashboard() {
           <div className="history-list">
             {recentHistory.map((h,i) => (
               <div className="history-item" key={h.id} style={{animationDelay:`${i*0.07}s`}}>
-                <span className="history-icon">{ICONS[h.type] || '📌'}</span>
+                <span className="history-icon">
+                  {(() => { const Icon = ICONS[h.type] || BsPinAngle; return <Icon /> })()}
+                </span>
                 <div className="history-text">
                   <div className="history-title">{h.title}</div>
                   <div className="history-date">{new Date(h.date).toLocaleDateString()}</div>

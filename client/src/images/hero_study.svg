@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" fill="none">
+  <!-- Background circle -->
+  <circle cx="240" cy="160" r="140" fill="#F5ECD7" opacity="0.6"/>
+  <!-- Desk -->
+  <rect x="80" y="220" width="320" height="12" rx="6" fill="#8B5E3C"/>
+  <rect x="110" y="232" width="12" height="50" rx="4" fill="#6B4226"/>
+  <rect x="358" y="232" width="12" height="50" rx="4" fill="#6B4226"/>
+  <!-- Open book -->
+  <path d="M160 180 Q200 160 240 180 Q280 160 320 180 L320 220 Q280 200 240 220 Q200 200 160 220 Z" fill="#FFF8EE" stroke="#C49A6C" stroke-width="2"/>
+  <line x1="240" y1="180" x2="240" y2="220" stroke="#C49A6C" stroke-width="1.5"/>
+  <!-- Book lines left page -->
+  <line x1="175" y1="193" x2="230" y2="188" stroke="#C49A6C" stroke-width="1" opacity="0.6"/>
+  <line x1="175" y1="200" x2="230" y2="196" stroke="#C49A6C" stroke-width="1" opacity="0.6"/>
+  <line x1="175" y1="207" x2="230" y2="204" stroke="#C49A6C" stroke-width="1" opacity="0.6"/>
+  <!-- Book lines right page -->
+  <line x1="250" y1="188" x2="305" y2="193" stroke="#C49A6C" stroke-width="1" opacity="0.6"/>
+  <line x1="250" y1="196" x2="305" y2="200" stroke="#C49A6C" stroke-width="1" opacity="0.6"/>
+  <line x1="250" y1="204" x2="305" y2="207" stroke="#C49A6C" stroke-width="1" opacity="0.6"/>
+  <!-- Laptop screen -->
+  <rect x="155" y="120" width="130" height="80" rx="6" fill="#3D2B1F" stroke="#6B4226" stroke-width="2"/>
+  <rect x="162" y="127" width="116" height="66" rx="3" fill="#1a1a2e"/>
+  <!-- Screen glow lines (AI interface) -->
+  <rect x="170" y="135" width="60" height="4" rx="2" fill="#C49A6C" opacity="0.8"/>
+  <rect x="170" y="143" width="90" height="3" rx="1.5" fill="#8B5E3C" opacity="0.5"/>
+  <rect x="170" y="150" width="75" height="3" rx="1.5" fill="#8B5E3C" opacity="0.5"/>
+  <rect x="170" y="157" width="85" height="3" rx="1.5" fill="#8B5E3C" opacity="0.5"/>
+  <rect x="170" y="164" width="50" height="3" rx="1.5" fill="#8B5E3C" opacity="0.5"/>
+  <!-- Laptop base -->
+  <rect x="148" y="200" width="144" height="8" rx="4" fill="#3D2B1F"/>
+  <!-- Pencil -->
+  <rect x="330" y="155" width="8" height="60" rx="2" fill="#F5C842" transform="rotate(-20 334 185)"/>
+  <polygon points="334,215 330,225 338,225" fill="#F5A623" transform="rotate(-20 334 185)"/>
+  <!-- Stars / sparkles -->
+  <circle cx="130" cy="100" r="4" fill="#C49A6C" opacity="0.7"/>
+  <circle cx="350" cy="90" r="3" fill="#8B5E3C" opacity="0.5"/>
+  <circle cx="370" cy="140" r="5" fill="#C49A6C" opacity="0.4"/>
+  <circle cx="110" cy="160" r="3" fill="#8B5E3C" opacity="0.4"/>
+  <!-- Mortarboard hat -->
+  <rect x="215" y="68" width="50" height="8" rx="2" fill="#3D2B1F"/>
+  <polygon points="240,55 215,68 265,68" fill="#3D2B1F"/>
+  <line x1="265" y1="68" x2="272" y2="82" stroke="#3D2B1F" stroke-width="2"/>
+  <circle cx="272" cy="84" r="3" fill="#C49A6C"/>
+</svg>

@@ -1,7 +1,8 @@
+import { useEffect } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import Navbar from './components/Navbar'
-import Home from './pages/Home'
+import MainLayout from './components/MainLayout'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
@@ -13,9 +14,21 @@ import Flashcards from './pages/Flashcards'
 import Exam from './pages/Exam'
 import Profile from './pages/Profile'
 
-function PrivateRoute({ children }) {
-  const { user } = useAuth()
-  return user ? children : <Navigate to="/login" />
+// Wraps AI tool pages: authenticated → full access, unauthenticated → guest mode
+function SmartRoute({ children, requireAuth = false }) {
+  const { user, guestMode, enterGuestMode, loading } = useAuth()
+
+  // Enter guest mode in an effect, not during render
+  useEffect(() => {
+    if (!loading && !user && !requireAuth && !guestMode) {
+      enterGuestMode()
+    }
+  }, [loading, user, requireAuth, guestMode, enterGuestMode])
+
+  if (loading) return null
+  if (user) return children
+  if (requireAuth) return <Navigate to="/login" />
+  return children
 }
 
 function App() {
@@ -23,17 +36,26 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        {/* Root → redirect to chat (the main experience) */}
+        <Route path="/" element={<Navigate to="/chat" replace />} />
+
+        {/* Auth pages */}
+        <Route path="/login"    element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard"   element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path="/chat"        element={<PrivateRoute><Chat /></PrivateRoute>} />
-        <Route path="/summary"     element={<PrivateRoute><Summary /></PrivateRoute>} />
-        <Route path="/quiz"        element={<PrivateRoute><Quiz /></PrivateRoute>} />
-        <Route path="/orientation" element={<PrivateRoute><Orientation /></PrivateRoute>} />
-        <Route path="/flashcards"  element={<PrivateRoute><Flashcards /></PrivateRoute>} />
-        <Route path="/exam"        element={<PrivateRoute><Exam /></PrivateRoute>} />
-        <Route path="/profile"     element={<PrivateRoute><Profile /></PrivateRoute>} />
+
+        {/* Protected pages (no sidebar) */}
+        <Route path="/dashboard" element={<SmartRoute requireAuth><Dashboard /></SmartRoute>} />
+        <Route path="/profile"   element={<SmartRoute requireAuth><Profile /></SmartRoute>} />
+
+        {/* AI tool pages — shared sidebar layout */}
+        <Route element={<MainLayout />}>
+          <Route path="/chat"        element={<SmartRoute><Chat /></SmartRoute>} />
+          <Route path="/summary"     element={<SmartRoute><Summary /></SmartRoute>} />
+          <Route path="/quiz"        element={<SmartRoute><Quiz /></SmartRoute>} />
+          <Route path="/orientation" element={<SmartRoute><Orientation /></SmartRoute>} />
+          <Route path="/flashcards"  element={<SmartRoute><Flashcards /></SmartRoute>} />
+          <Route path="/exam"        element={<SmartRoute><Exam /></SmartRoute>} />
+        </Route>
       </Routes>
     </>
   )

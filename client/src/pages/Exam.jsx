@@ -1,12 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
+import { useAuth } from '../context/AuthContext'
 import { useHistory } from '../context/HistoryContext'
-import { generateQuiz } from '../services/api'
+import { generateExam } from '../services/api'
+import { BsStopwatch, BsTrophy, BsHandThumbsUp, BsBook, BsCheckCircleFill, BsXCircle, BsHourglass } from 'react-icons/bs'
+import GuestBanner from '../components/GuestBanner'
+import FileUpload from '../components/FileUpload'
 
 function Exam() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
+  const { guestMode } = useAuth()
+  const navigate = useNavigate()
   const { addEntry } = useHistory()
   const [subject, setSubject] = useState('')
+  const [courseText, setCourseText] = useState('')
   const [numQ, setNumQ] = useState(10)
   const [duration, setDuration] = useState(15) // minutes
   const [questions, setQuestions] = useState([])
@@ -32,11 +40,10 @@ function Exam() {
   const timerClass = timeLeft < 60 ? 'danger' : timeLeft < 180 ? 'warning' : ''
 
   const handleStart = async () => {
-    if (!subject.trim()) return
+    if (!subject.trim() && !courseText.trim()) return
     setLoading(true)
     try {
-      // Generate questions in batches if numQ > 5
-      const qs = await generateQuiz('', subject, numQ)
+      const qs = await generateExam(subject || 'General', numQ, lang, courseText)
       setQuestions(qs)
       setAnswers({})
       setTimeLeft(duration * 60)
@@ -68,7 +75,7 @@ function Exam() {
       <div className="tool-page">
         <div className="quiz-score">
           <div style={{fontSize:'3rem',marginBottom:8}}>
-            {pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '📚'}
+            {pct >= 80 ? <BsTrophy /> : pct >= 60 ? <BsHandThumbsUp /> : <BsBook />}
           </div>
           <div className="quiz-score-number">{score}/{questions.length}</div>
           <div style={{fontSize:'2rem',color:'var(--brown)',marginBottom:8}}>{pct}%</div>
@@ -88,7 +95,7 @@ function Exam() {
                 }}>
                   <p style={{fontWeight:500,marginBottom:6,color:'var(--text)'}}>{i+1}. {q.question}</p>
                   <p style={{fontSize:'0.85rem',color: isCorrect ? 'var(--success)' : 'var(--error)'}}>
-                    {isCorrect ? '✅' : '❌'} {q.options[q.correct]}
+                    {isCorrect ? <BsCheckCircleFill /> : <BsXCircle />} {q.options[q.correct]}
                   </p>
                   {!isCorrect && answers[i] !== undefined && (
                     <p style={{fontSize:'0.8rem',color:'var(--text-muted)'}}>
@@ -114,14 +121,14 @@ function Exam() {
       <div className="tool-page">
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:12,flexWrap:'wrap'}}>
           <div className="tool-page-header" style={{margin:0}}>
-            <div className="tool-page-icon">⏱️</div>
+            <div className="tool-page-icon"><BsStopwatch /></div>
             <div>
               <h1 className="tool-page-title">{subject}</h1>
               <p className="tool-page-sub">{answered}/{questions.length} {t.examAnswered}</p>
             </div>
           </div>
           <div className={`exam-timer ${timerClass}`}>
-            ⏱ {formatTime(timeLeft)}
+            <BsStopwatch /> {formatTime(timeLeft)}
           </div>
         </div>
 
@@ -153,8 +160,14 @@ function Exam() {
   // Setup phase
   return (
     <div className="tool-page">
+      {guestMode && (
+        <GuestBanner
+          onLogin={() => navigate('/login')}
+          onRegister={() => navigate('/register')}
+        />
+      )}
       <div className="tool-page-header">
-        <div className="tool-page-icon">⏱️</div>
+        <div className="tool-page-icon"><BsStopwatch /></div>
         <div>
           <h1 className="tool-page-title">{t.examTitle}</h1>
           <p className="tool-page-sub">{t.examSub}</p>
@@ -162,6 +175,15 @@ function Exam() {
       </div>
 
       <div className="input-area">
+        {/* PDF/Image upload for course-based exam */}
+        <FileUpload onExtracted={(text) => setCourseText(text)} />
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--text-muted)', fontSize: '0.78rem' }}>
+          <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+          ou entrez la matière
+          <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+        </div>
+
         <div className="form-group">
           <label className="form-label">{t.examSubject}</label>
           <input className="form-input" value={subject} onChange={e=>setSubject(e.target.value)} placeholder="Ex: Mathématiques Bac, Physique..." />
@@ -180,8 +202,8 @@ function Exam() {
             </select>
           </div>
         </div>
-        <button className="btn-action" onClick={handleStart} disabled={loading || !subject.trim()}>
-          {loading ? '⏳ Génération...' : t.startExam}
+        <button className="btn-action" onClick={handleStart} disabled={loading || (!subject.trim() && !courseText.trim())}>
+          {loading ? <><BsHourglass /> Génération...</> : t.startExam}
         </button>
       </div>
     </div>

@@ -18,38 +18,43 @@ export const registerUser = async ({ name, email, password }) => {
   return res.data
 }
 
-// Chat
-export const sendMessage = async (messages) => {
-  const res = await api.post('/ai/chat', { messages })
+// Chat — passes uiLang so backend applies the correct multilingual prompt
+export const sendMessage = async (messages, uiLang = 'fr') => {
+  const res = await api.post('/ai/chat', { messages, uiLang })
   return res.data.reply
 }
 
 // Summary
-export const generateSummary = async (text) => {
-  const res = await api.post('/ai/summary', { text })
+export const generateSummary = async (text, uiLang = 'fr') => {
+  const res = await api.post('/ai/summary', { text, uiLang })
   return res.data.summary
 }
 
 // Quiz — numQ optional (default 5)
-export const generateQuiz = async (courseText, subject, numQ = 5) => {
-  const res = await api.post('/ai/quiz', { courseText, subject, numQ })
+export const generateQuiz = async (courseText, subject, numQ = 5, uiLang = 'fr') => {
+  const res = await api.post('/ai/quiz', { courseText, subject, numQ, uiLang })
   return res.data.questions
 }
 
 // Flashcards
-export const generateFlashcards = async (text) => {
-  const res = await api.post('/ai/flashcards', { text })
+export const generateFlashcards = async (text, uiLang = 'fr') => {
+  const res = await api.post('/ai/flashcards', { text, uiLang })
   return res.data.cards
 }
 
 // Orientation
-export const getOrientation = async (text) => {
-  const res = await api.post('/ai/orientation', { text })
+export const getOrientation = async (text, uiLang = 'fr') => {
+  const res = await api.post('/ai/orientation', { text, uiLang })
   return res.data.advice
 }
 
+// Exam
+export const generateExam = async (subject, numQ = 10, uiLang = 'fr', courseText = '') => {
+  const res = await api.post('/ai/exam', { subject, numQ, uiLang, courseText })
+  return res.data.questions
+}
+
 // File extraction (PDF / Image → text)
-// Uses FormData to send binary file to backend
 export const extractFromFile = async (file) => {
   const formData = new FormData()
   formData.append('file', file)

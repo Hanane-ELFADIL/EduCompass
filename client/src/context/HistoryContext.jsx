@@ -1,21 +1,27 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
+import { useAuth } from './AuthContext'
 
 const HistoryContext = createContext()
 
 export function HistoryProvider({ children }) {
+  const { user } = useAuth()
+
   const [history, setHistory] = useState(() => {
     try { return JSON.parse(localStorage.getItem('student_history') || '[]') }
     catch { return [] }
   })
 
   const addEntry = (type, title) => {
+    // Guard: no-op for guest / unauthenticated users — history is auth-only
+    if (!user) return
+
     const entry = {
       id: Date.now(),
       type,   // 'chat' | 'summary' | 'quiz' | 'orientation' | 'flashcard' | 'exam'
       title,
       date: new Date().toISOString()
     }
-    const updated = [entry, ...history].slice(0, 50) // garder 50 entrées max
+    const updated = [entry, ...history].slice(0, 50) // keep max 50 entries
     setHistory(updated)
     localStorage.setItem('student_history', JSON.stringify(updated))
   }

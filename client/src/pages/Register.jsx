@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { BsMortarboard } from 'react-icons/bs'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { registerUser } from '../services/api'
@@ -31,7 +32,7 @@ function Register() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-logo">
-          <div className="auth-logo-icon">🎓</div>
+          <div className="auth-logo-icon"><BsMortarboard /></div>
           <h2 className="auth-title">{t.registerTitle}</h2>
           <p className="auth-subtitle">{t.registerSub}</p>
         </div>

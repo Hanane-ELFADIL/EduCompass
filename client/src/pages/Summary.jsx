@@ -1,10 +1,17 @@
 import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
+import { useAuth } from '../context/AuthContext'
 import { useHistory } from '../context/HistoryContext'
 import { generateSummary, extractFromFile } from '../services/api'
+import { BsFileEarmarkText, BsHourglass, BsPaperclip, BsFileEarmark, BsXCircle } from 'react-icons/bs'
+import GuestBanner from '../components/GuestBanner'
+import ReactMarkdown from 'react-markdown'
 
 function Summary() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
+  const { guestMode } = useAuth()
+  const navigate = useNavigate()
   const { addEntry } = useHistory()
   const [text, setText] = useState('')
   const [result, setResult] = useState('')
@@ -23,7 +30,7 @@ function Summary() {
       setText(extracted)
     } catch {
       setText('')
-      alert('Erreur lors de l\'extraction. Colle le texte manuellement.')
+      // Error shown inline, no alert needed
     } finally {
       setExtracting(false)
     }
@@ -41,11 +48,11 @@ function Summary() {
     setLoading(true)
     setResult('')
     try {
-      const summary = await generateSummary(text)
+      const summary = await generateSummary(text, lang)
       setResult(summary)
       addEntry('summary', text.slice(0,60) + '...')
     } catch {
-      setResult('❌ Erreur technique. Réessayez.')
+      setResult(<><BsXCircle /> Erreur technique. Réessayez.</>)
     } finally {
       setLoading(false)
     }
@@ -53,8 +60,14 @@ function Summary() {
 
   return (
     <div className="tool-page">
+      {guestMode && (
+        <GuestBanner
+          onLogin={() => navigate('/login')}
+          onRegister={() => navigate('/register')}
+        />
+      )}
       <div className="tool-page-header">
-        <div className="tool-page-icon">📝</div>
+        <div className="tool-page-icon"><BsFileEarmarkText /></div>
         <div>
           <h1 className="tool-page-title">{t.summaryPageTitle}</h1>
           <p className="tool-page-sub">{t.summaryPageSub}</p>
@@ -69,10 +82,10 @@ function Summary() {
         onDrop={handleDrop}
         onClick={()=>fileRef.current.click()}
       >
-        <div className="upload-icon">{extracting ? '⏳' : '📎'}</div>
+        <div className="upload-icon">{extracting ? <BsHourglass /> : <BsPaperclip />}</div>
         {file ? (
           <div className="file-badge" onClick={e=>e.stopPropagation()}>
-            📄 {file.name}
+            <BsFileEarmark /> {file.name}
             <button onClick={()=>{setFile(null);setText('')}}>×</button>
           </div>
         ) : (
@@ -98,11 +111,23 @@ function Summary() {
           placeholder={t.summaryPlaceholder}
         />
         <button className="btn-action" onClick={handleGenerate} disabled={loading || !text.trim()}>
-          {loading ? '⏳ ...' : t.summaryBtn}
+          {loading ? <><BsHourglass /> ...</> : t.summaryBtn}
         </button>
       </div>
 
-      {result && <div className="result-box fade-in">{result}</div>}
+      {!result && !loading && (
+        <div className="empty-state-text">
+          <BsFileEarmarkText size={48} style={{color:'var(--brown-light)',opacity:0.4}} />
+          <p style={{color:'var(--text-muted)',fontSize:'0.85rem',marginTop:8}}>
+            Collez votre cours ou importez un fichier pour générer un résumé structuré
+          </p>
+        </div>
+      )}
+      {result && (
+        <div className="result-box markdown-result fade-in">
+          <ReactMarkdown>{result}</ReactMarkdown>
+        </div>
+      )}
     </div>
   )
 }
