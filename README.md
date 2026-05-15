@@ -185,9 +185,3 @@ Le backend tournera sur → **http://localhost:5000**
 
 **Hanane ELFADIL**  
 Projet : Assistant IA pour étudiants marocains 🇲🇦
-
----
-<!-- 
-## 📄 Licence
-
-MIT — libre d'utilisation et de modification. -->
