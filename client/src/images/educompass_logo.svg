@@ -1,0 +1,23 @@
+<svg width="100%" viewBox="0 0 680 160" role="img" xmlns="http://www.w3.org/2000/svg" style="">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">EduCompass logo</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">EduCompass logo in طالب AI navbar style</desc>
+
+  <!-- Dark navbar background -->
+  <rect width="680" height="160" rx="14" fill="#1C1410" style="fill:rgb(28, 20, 16);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Warm circle icon (like طالب AI avatar) -->
+  <circle cx="100" cy="80" r="34" fill="#8B4513" style="fill:rgb(139, 69, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="100" cy="80" r="30" fill="#A0522D" style="fill:rgb(160, 82, 45);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Simple compass N/S needle inside circle -->
+  <polygon points="100,54 96,80 104,80" fill="#F5EDE0" style="fill:rgb(245, 237, 224);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <polygon points="100,106 96,80 104,80" fill="#C9A97A" style="fill:rgb(201, 169, 122);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="100" cy="80" r="4" fill="#F5EDE0" style="fill:rgb(245, 237, 224);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- EduCompass wordmark -->
+  <text x="150" y="71" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#FFFFFF" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Georgia, serif;font-size:32px;font-weight:700;text-anchor:start;dominant-baseline:auto">Edu</text>
+  <text x="217" y="71" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#C9A97A" style="fill:rgb(201, 169, 122);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Georgia, serif;font-size:32px;font-weight:700;text-anchor:start;dominant-baseline:auto">Compass</text>
+
+  <!-- Tagline -->
+  <text x="150" y="100" font-family="'Segoe UI', sans-serif" font-size="13" fill="#9A7355" letter-spacing="1.5" style="fill:rgb(154, 115, 85);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Segoe UI&quot;, sans-serif;font-size:13px;font-weight:400;text-anchor:start;dominant-baseline:auto">Assistant IA pour étudiants marocains</text>
+</svg>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { BsMortarboard } from 'react-icons/bs'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { loginUser } from '../services/api'
@@ -31,7 +32,7 @@ function Login() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-logo">
-          <div className="auth-logo-icon">🎓</div>
+          <div className="auth-logo-icon"><BsMortarboard /></div>
           <h2 className="auth-title">{t.loginTitle}</h2>
           <p className="auth-subtitle">{t.loginSub}</p>
         </div>

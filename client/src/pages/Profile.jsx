@@ -1,6 +1,30 @@
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { useHistory } from '../context/HistoryContext'
+import {
+  BsChatDots,
+  BsFileEarmarkText,
+  BsLightbulb,
+  BsCompass,
+  BsCardText,
+  BsStopwatch,
+  BsPersonCircle,
+  BsMortarboard,
+} from 'react-icons/bs'
+
+const HISTORY_ICONS = {
+  chat: BsChatDots,
+  summary: BsFileEarmarkText,
+  quiz: BsLightbulb,
+  exam: BsStopwatch,
+  flashcard: BsCardText,
+  orientation: BsCompass,
+}
+
+function getHistoryIcon(type) {
+  const Icon = HISTORY_ICONS[type] || BsCompass
+  return <Icon />
+}
 
 function Profile() {
   const { user } = useAuth()
@@ -30,12 +54,12 @@ function Profile() {
     <div className="profile-page">
       <div className="profile-header">
         <div className="profile-avatar">
-          {user?.name?.charAt(0)?.toUpperCase() || '👤'}
+          {user?.name?.charAt(0)?.toUpperCase() || <BsPersonCircle />}
         </div>
         <div>
           <h1 className="profile-name">{user?.name}</h1>
           <p className="profile-email">{user?.email}</p>
-          <span className="level-badge" style={{marginTop:8}}>🎓 Étudiant</span>
+          <span className="level-badge" style={{marginTop:8}}><BsMortarboard /> Étudiant</span>
         </div>
       </div>
 
@@ -44,10 +68,10 @@ function Profile() {
         <h3>{t.statTotal} — {stats.total} sessions</h3>
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(130px,1fr))',gap:12,marginTop:8}}>
           {[
-            {icon:'💬', n:stats.chats,     l:t.chatTitle},
-            {icon:'📝', n:stats.summaries, l:t.summaryTitle},
-            {icon:'🧠', n:stats.quizzes,   l:t.quizTitle},
-            {icon:'⏱️', n:stats.exams,     l:t.examTitle},
+            {icon:<BsChatDots />,        n:stats.chats,     l:t.chatTitle},
+            {icon:<BsFileEarmarkText />, n:stats.summaries, l:t.summaryTitle},
+            {icon:<BsLightbulb />,       n:stats.quizzes,   l:t.quizTitle},
+            {icon:<BsStopwatch />,       n:stats.exams,     l:t.examTitle},
           ].map((s,i) => (
             <div key={i} className="stat-card">
               <div style={{fontSize:'1.5rem'}}>{s.icon}</div>
@@ -87,7 +111,7 @@ function Profile() {
             {history.slice(0,8).map((h,i) => (
               <div className="history-item" key={h.id} style={{animationDelay:`${i*0.05}s`}}>
                 <span className="history-icon">
-                  {h.type==='chat'?'💬':h.type==='summary'?'📝':h.type==='quiz'?'🧠':h.type==='exam'?'⏱️':h.type==='flashcard'?'🃏':'🧭'}
+                  {getHistoryIcon(h.type)}
                 </span>
                 <div className="history-text">
                   <div className="history-title">{h.title}</div>
